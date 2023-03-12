@@ -1,0 +1,41 @@
+{% extends "_bace.html" %}
+{% load crispy_forms_tags %}
+{% block page_title %}
+    ورود
+{% endblock page_title %}
+
+{% block content %}
+    <body class="hold-transition login-page">
+    <div class="login-box">
+        <div class="login-logo">
+            <a href="#"><h2>ورود</h2></a>
+        </div>
+        <!-- /.login-logo -->
+        <div class="card">
+            <div class="card-body login-card-body">
+                <p class="login-box-msg">خوش آمدید</p>
+
+                <form action="" method="post">
+                    {% csrf_token %}
+                    {{ form|crispy }}
+                    <input class="btn btn-block btn-primary" type="submit" value="ورود">
+                </form>
+
+                <div class="social-auth-links text-center mb-3">
+                    <a href="{% url "account_signup" %}" class="btn btn-block btn-danger">
+                        <i class="fab  "></i> ثبت نام
+                    </a>
+                </div>
+                <!-- /.social-auth-links -->
+
+                <p class="mb-1">
+                    <a href="{% url "account_reset_password" %}">فراموشی رمز عبور</a>
+                </p>
+
+            </div>
+            <!-- /.login-card-body -->
+        </div>
+    </div>
+    <!-- /.login-box -->
+{% endblock content %}
+

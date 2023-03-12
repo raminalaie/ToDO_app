@@ -1,0 +1,38 @@
+{% extends "_bace.html" %}
+{% load crispy_forms_tags %}
+{% block page_title %}
+    ثبت نام
+{% endblock page_title %}
+
+{% block content %}
+    <body class="hold-transition login-page">
+    <div class="login-box">
+        <div class="login-logo">
+            <a href="#"><h2>ثبت نام</h2></a>
+        </div>
+        <!-- /.login-logo -->
+        <div class="card">
+            <div class="card-body login-card-body">
+                <p class="login-box-msg">ثبت نام </p>
+
+                <form action="" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ form|crispy }}
+                    <input class="btn btn-block btn-primary" type="submit" value="ثبت نام ">
+                </form>
+
+                <div class="social-auth-links text-center mb-3">
+                    <a href="{% url "account_login" %}" class="btn btn-block btn-danger">
+                        <i class="fab  "></i> ورود
+                    </a>
+                </div>
+                <!-- /.social-auth-links -->
+
+
+
+            </div>
+            <!-- /.login-card-body -->
+        </div>
+    </div>
+{% endblock content %}
+
