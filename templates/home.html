@@ -7,58 +7,78 @@
 
 {% block content %}
     <body class="hold-transition login-page">
-    <div class="login-box">
+    <div class="w-10">
         <div class="login-logo">
             <h2>پروفایل کاربری</h2>
             <h5>{{ user.email }}</h5>
         </div>
         <!-- /.login-logo -->
 
-        <form class="pt-3" method="POST" action="{% url 'create_task' %}"></form>
+        <form class="pt-3" method="POST" action="{% url 'create_task' %}">
             {% csrf_token %}
             <div class="input-group mb-3">
                 <input type="text" class="form-control rounded-4" name="title" placeholder="Enter task title"
                        aria-label="Recipient's username" aria-describedby="button-addon2">
                 <button class="btn btn-primary" type="submit">ADD</button>
             </div>
-            <div class="card card-primary card-outline mt-3 ">
-                <div class="card-body box-profile">
+        </form>
+        <div class="card card-primary card-outline mt-3 ">
+            <div class="card-body box-profile">
 
-                    <!-- /.card-header -->
-                    <div class="card-body table-responsive p-0">
-                        <table class="table table-hover">
-                            <thead>
+                <!-- /.card-header -->
+                <div class="card-body table-responsive p-0">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th>موضوع</th>
+                            <th>وضعیت</th>
+                            <th>ویرایش</th>
+                            <th>نوبار</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for post in post %}
                             <tr>
-                                <th>title</th>
-                                <th>done</th>
-                                <th>time</th>
-                                <th>delete</th>
+                                <td>{{ post.title }}</td>
+                                {% if post.status == False %}
+                                    <td>
+                                        <a class="btn btn-block btn-danger btn-sm"
+                                           href="{% url 'status_change' pk=post.id %}"> غیر فعال(کلیک کنید) </a>
+                                    </td>
+                                {% else %}
+                                    <td>
+                                        <a class="btn btn-block btn-success btn-sm"
+                                           href="{% url 'status_change' pk=post.id %}">فعال(کلیک کنید)</a>
+                                    </td>
+                                {% endif %}
+
+
+                                <td>
+                                    <a class="btn btn-block btn-warning btn-sm"
+                                       href="{% url "update_task" pk=post.id %}">ویرایش </a>
+                                </td>
+                                <td>
+                                    <a class="btn btn-block btn-danger btn-sm" href="{% url "DeleteView" pk=post.id %}">حذف</a>
+                                </td>
                             </tr>
-                            </thead>
-                            <tbody>
-                            {% for post in post %}
-                                <tr>
-                                    <td>{{ post.title }}</td>
-                                    <td>{{ post.status }}</td>
-                                    <td>{{ post.updated_date }}</td>
-                                    <td>delete</td>
-                                </tr>
-                            {% endfor %}
+
+                        {% endfor %}
 
 
-                            </tbody>
-                        </table>
-                    </div>
-                    <!-- /.card-body -->
-                    {% if user.is_authenticated %}
-
-                        <a href="{% url "account_logout" %}" class="btn btn-block btn-danger">
-                            <i class="fab  "></i> خروج
-                        </a>
-                    {% endif %}
+                        </tbody>
+                    </table>
                 </div>
+                <!-- /.card-body -->
+                <br>
+                {% if user.is_authenticated %}
 
+                    <a href="{% url "account_logout" %}" class="btn btn-block btn-danger">
+                        <i class="fab  "></i> خروج
+                    </a>
+                {% endif %}
             </div>
+
+        </div>
     </div>
 
 

@@ -24123,4 +24123,9 @@ a.text-muted:hover {
 .link-black:hover, .link-black:focus {
   color: #e6e8ea;
 }
+
+
+.w-10 {
+  width: 20%;
+}
 /*# sourceMappingURL=adminlte.css.map */
