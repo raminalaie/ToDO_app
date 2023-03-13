@@ -40,11 +40,11 @@ class TaskComplete(LoginRequiredMixin, View):
 
     def get(self, request, *args, **kwargs):
         object = Post.objects.get(id=kwargs.get("pk"))
-        if Post.objects.filter(status=False):
+        if Post.objects.filter(id=kwargs.get("pk"), status=False):
             object.status = True
             object.save()
             return redirect(self.success_url)
-        elif Post.objects.filter(status=True):
+        elif Post.objects.filter(id=kwargs.get("pk"), status=True):
             object.status = False
             object.save()
             return redirect(self.success_url)

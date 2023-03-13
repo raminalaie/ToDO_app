@@ -4,83 +4,88 @@
     خانه
 {% endblock page_title %}
 
-
 {% block content %}
-    <body class="hold-transition login-page">
-    <div class="w-10">
-        <div class="login-logo">
-            <h2>پروفایل کاربری</h2>
-            <h5>{{ user.email }}</h5>
-        </div>
-        <!-- /.login-logo -->
-
-        <form class="pt-3" method="POST" action="{% url 'create_task' %}">
-            {% csrf_token %}
-            <div class="input-group mb-3">
-                <input type="text" class="form-control rounded-4" name="title" placeholder="Enter task title"
-                       aria-label="Recipient's username" aria-describedby="button-addon2">
-                <button class="btn btn-primary" type="submit">ADD</button>
-            </div>
-        </form>
-        <div class="card card-primary card-outline mt-3 ">
-            <div class="card-body box-profile">
-
-                <!-- /.card-header -->
-                <div class="card-body table-responsive p-0">
-                    <table class="table table-hover">
-                        <thead>
-                        <tr>
-                            <th>موضوع</th>
-                            <th>وضعیت</th>
-                            <th>ویرایش</th>
-                            <th>نوبار</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {% for post in post %}
-                            <tr>
-                                <td>{{ post.title }}</td>
-                                {% if post.status == False %}
-                                    <td>
-                                        <a class="btn btn-block btn-danger btn-sm"
-                                           href="{% url 'status_change' pk=post.id %}"> غیر فعال(کلیک کنید) </a>
-                                    </td>
-                                {% else %}
-                                    <td>
-                                        <a class="btn btn-block btn-success btn-sm"
-                                           href="{% url 'status_change' pk=post.id %}">فعال(کلیک کنید)</a>
-                                    </td>
-                                {% endif %}
-
-
-                                <td>
-                                    <a class="btn btn-block btn-warning btn-sm"
-                                       href="{% url "update_task" pk=post.id %}">ویرایش </a>
-                                </td>
-                                <td>
-                                    <a class="btn btn-block btn-danger btn-sm" href="{% url "DeleteView" pk=post.id %}">حذف</a>
-                                </td>
-                            </tr>
-
-                        {% endfor %}
-
-
-                        </tbody>
-                    </table>
+    <br><br><br><br>
+    <div class="modal modal-signin position-static d-block  py-5" tabindex="-1" role="dialog" id="modalSignin">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content rounded-4 shadow " >
+                <br><br>
+                <div class="login-logo mr-5">
+                    <h2>پروفایل کاربری</h2>
+                    <h5>{{ user.email }}</h5>
                 </div>
-                <!-- /.card-body -->
-                <br>
-                {% if user.is_authenticated %}
 
-                    <a href="{% url "account_logout" %}" class="btn btn-block btn-danger">
-                        <i class="fab  "></i> خروج
-                    </a>
-                {% endif %}
+                <div class="modal-body  pt-2">
+                    <form class="pt-3" method="POST" action="{% url 'create_task' %}">
+                        {% csrf_token %}
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control rounded-4" name="title"
+                                   placeholder="موضوع جدید وارد کنید "
+                                   aria-label="Recipient's username" aria-describedby="button-addon2">
+                            <button class="btn btn-primary" type="submit">اضاف کردن</button>
+                        </div>
+                    </form>
+                    <div class="card card-primary card-outline mt-3 ">
+                        <div class="card-body box-profile">
+
+                            <!-- /.card-header -->
+                            <div class="card-body table-responsive p-0">
+                                <table class="table table-hover">
+                                    <thead>
+                                    <tr>
+                                        <th>موضوع</th>
+                                        <th>وضعیت</th>
+                                        <th>ویرایش</th>
+                                        <th>نوبار</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for post in post %}
+                                        <tr>
+                                            <td><h5>{{ post.title }}</h5></td>
+                                            {% if post.status == False %}
+                                                <td>
+                                                    <a class="btn btn-block btn-danger btn-sm"
+                                                       href="{% url 'status_change' pk=post.id %}"> غیر فعال(کلیک
+                                                        کنید) </a>
+                                                </td>
+                                            {% else %}
+                                                <td>
+                                                    <a class="btn btn-block btn-success btn-sm"
+                                                       href="{% url 'status_change' pk=post.id %}">فعال(کلیک کنید)</a>
+                                                </td>
+                                            {% endif %}
+
+
+                                            <td>
+                                                <a class="btn btn-block btn-warning btn-sm"
+                                                   href="{% url "update_task" pk=post.id %}">ویرایش </a>
+                                            </td>
+                                            <td>
+                                                <a class="btn btn-block btn-danger btn-sm"
+                                                   href="{% url "DeleteView" pk=post.id %}">حذف</a>
+                                            </td>
+                                        </tr>
+
+                                    {% endfor %}
+
+
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- /.card-body -->
+                            <br>
+                            {% if user.is_authenticated %}
+
+                                <a href="{% url "account_logout" %}" class="btn btn-block btn-danger">
+                                    <i class="fab  "></i> خروج
+                                </a>
+                            {% endif %}
+                        </div>
+
+                    </div>
+                </div>
             </div>
-
         </div>
     </div>
-
-
-    <!-- /.login-box -->
 {% endblock content %}
